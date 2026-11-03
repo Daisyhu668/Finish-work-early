@@ -21,6 +21,7 @@ description: 跨Notion客户总表、Todoist待办、Google日历和早晚成果
 7. 复盘用户反馈，仅将去除客户信息的通用规则改进维护进本目录及相关技能；不为“有更新”制造每日提交。
 
 ## 技能路由
+- 整理发票、客户发票清单、银承开票前核验、选票/剔票、汇票序号BI关联：../bankpro-invoice-two-stage/SKILL.md；第一阶段InvoiceLogInfo.xls，第二阶段InvoiceInfo.xls。严禁改模板、跨客户串票和未经核实承诺导入成功。
 - 借据接力贷、额度到期和超期催办：../loan-maturity-relay-and-credit-expiry/SKILL.md
 - 客户专属材料清单：../customer-credit-material-checklist/SKILL.md
 - 存单解冻及手工备款：../cd-unfreeze-manual-funding/SKILL.md
