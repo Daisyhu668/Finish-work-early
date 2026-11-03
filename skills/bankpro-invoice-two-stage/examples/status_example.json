@@ -1,0 +1,11 @@
+{
+  "26000000000000000001": {
+    "external_count": 0,
+    "used_amount": "0.00"
+  },
+  "26000000000000000002": {
+    "external_count": 2,
+    "used_amount": "0.00",
+    "external2_enhanced_review_confirmed": true
+  }
+}
