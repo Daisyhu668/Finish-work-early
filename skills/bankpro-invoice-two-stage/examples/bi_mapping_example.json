@@ -1,0 +1,16 @@
+{
+  "customer": "示例采购企业有限公司",
+  "case_id": "CASE20261029A",
+  "source_hash": "从本批次data/frozen.json复制真实source_hash",
+  "registration_bank_system_confirmed": false,
+  "over_6_month_exception_confirmed": false,
+  "approved_bill_limit": "100000000.00",
+  "contract_unpaid_by_payee": {
+    "示例供应商有限公司": "80000000.00"
+  },
+  "bills": [
+    {"bi": "", "payee": "示例供应商有限公司", "amount": "20000000.00", "issue_date": ""},
+    {"bi": "", "payee": "示例供应商有限公司", "amount": "25000000.00", "issue_date": ""}
+  ],
+  "by_invoice": {}
+}
