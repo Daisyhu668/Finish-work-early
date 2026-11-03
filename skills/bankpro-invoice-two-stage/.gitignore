@@ -1,0 +1,19 @@
+# Do not publish any bank-provided original templates or customer business data.
+assets/*.xls
+assets/*.xlsx
+cases/
+案件/
+output/
+outputs/
+输出/
+customer_data/
+*.audit.json
+normalized.json
+frozen.json
+association_plan.json
+selected.csv
+excluded.csv
+issues.csv
+*.pyc
+__pycache__/
+.DS_Store
