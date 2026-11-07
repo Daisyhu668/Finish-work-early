@@ -1,0 +1,4 @@
+interface:
+  display_name: "科技企业经营与授信分析"
+  short_description: "依据当前业务资料办理科技企业经营与授信分析，保留原始模板并核对实际进度"
+  default_prompt: "请使用 $technology-credit-research 处理当前客户对应事项，先核对最新资料并交付可用成果。"

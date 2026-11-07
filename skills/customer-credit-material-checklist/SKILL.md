@@ -3,6 +3,8 @@ name: customer-credit-material-checklist
 description: 根据GitHub原始授信材料清单、存量客户资料和产品类型，生成客户专属续授信材料Word清单
 ---
 # 客户专属授信材料清单
+
+先读取[共用工作规则](../_shared/WORKFLOW.md)并以用户当前指令为准。收件箱默认只读；模板专项限制及实际证据优先，旧步骤中的写回或外发须符合本次授权。
 触发：材料清单、续授信、年审、增信基金材料、客户资料准备。
 1. 先读取 data/checklistData.ts 的 CREDIT_BUSINESS，识别 low-risk-general、industrial-general、small-biz-full 等适用类别；再检查 components/tools/ChecklistGenerator.tsx 与 checklist-generator/logic 是否为所需产品专项。不可凭通用经验替代源码条目。
 2. 按客户号精确匹配原Notion客户档案、历史材料版本、产品、担保及续授信情况。只将已核实在档、仍有效且无变更的存量基础资料标为“可沿用”；无法核实则标“待核”，不能直接免交。

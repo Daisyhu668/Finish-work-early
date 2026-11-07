@@ -209,3 +209,8 @@ This project is indexed by GitNexus as **Finish-work-early** (2988 symbols, 6696
 5. 如果是做设计，必须输出正式文档，不要泛泛而谈；
 6. 如果是做部署，必须一步步写清楚命令、配置、验证方法；
 7. 如果是做测试，必须告诉我每一步会看到什么结果
+
+
+## 银行工作技能统一入口
+
+用户的日常工作技能统一在skills/维护，先读skills/README.md、skills/catalog.json和skills/work-skills-router/SKILL.md。新增工作技能按skills/AGENTS.md保存；网页原功能逐项归属看skills/source-map.json。开发导航技能与生活/社区项目保留原位置，不与业务技能混计。现有脚本/模板路径保留兼容，不能把创建说明文件当作已实现或部署网页功能。

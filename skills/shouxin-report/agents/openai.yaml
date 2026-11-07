@@ -1,0 +1,4 @@
+interface:
+  display_name: "固定模板授信调查报告"
+  short_description: "依据原始材料执行固定模板授信调查报告，严格保留用户原版模板并核验结果"
+  default_prompt: "请使用 $shouxin-report 处理本次客户材料，保留原模板并核验。"

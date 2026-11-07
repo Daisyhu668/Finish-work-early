@@ -1,0 +1,4 @@
+interface:
+  display_name: "开户销户及柜面材料清单"
+  short_description: "依据当前业务资料办理开户销户及柜面材料清单，保留原始模板并核对实际进度"
+  default_prompt: "请使用 $counter-business-material-checklist 处理当前客户对应事项，先核对最新资料并交付可用成果。"

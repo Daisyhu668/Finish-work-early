@@ -1,3 +1,19 @@
+# Finish Work Early · 工作技能与工具平台
+
+**[进入工作技能区 →](skills/README.md)**
+
+银行日常工作技能统一维护在`skills/`：授信与分析、材料与调查、票据与存单、贷后与期限、OA与文稿、客户经营、日常执行。
+
+- 人员查阅：[分类技能目录](skills/README.md)
+- Agent调用：[统一路由](skills/work-skills-router/SKILL.md)与[机器目录](skills/catalog.json)
+- 已有工具对应关系：[逐项来源映射](skills/source-map.json)
+- 后续新增约定：[工作区维护规则](skills/AGENTS.md)
+- 其他仓库归属：[仓库导航](skills/REPOSITORIES.md)
+
+工作技能收录表示其办理说明/依赖已经整理，具体自动化能力以各技能为准。现有网站与部署入口继续保留，开发说明如下。
+
+---
+
 <div align="center">
 <img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
 </div>

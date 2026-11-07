@@ -1,0 +1,293 @@
+{
+  "schema_version": 1,
+  "source": "constants/skills.ts",
+  "items": [
+    {
+      "source_id": "cd-calculator",
+      "source_name": "银承/存单测算小助手",
+      "source_route": "/acceptance-calculator",
+      "disposition": "work_skill",
+      "skill_ids": [
+        "acceptance-deposit-calculation"
+      ],
+      "reason": "已映射工作技能"
+    },
+    {
+      "source_id": "account-fee-discount",
+      "source_name": "账户业务费用优惠申请",
+      "source_route": "/fee-discount",
+      "disposition": "work_skill",
+      "skill_ids": [
+        "account-fee-discount"
+      ],
+      "reason": "已映射工作技能"
+    },
+    {
+      "source_id": "rate-discount-report",
+      "source_name": "利率优惠签报智能生成",
+      "source_route": "/rate-offer",
+      "disposition": "work_skill",
+      "skill_ids": [
+        "rate-discount-report"
+      ],
+      "reason": "已映射工作技能"
+    },
+    {
+      "source_id": "news-assistant",
+      "source_name": "宣传稿排版助手",
+      "source_route": "/news-assistant",
+      "disposition": "work_skill",
+      "skill_ids": [
+        "bank-news-typesetting"
+      ],
+      "reason": "已映射工作技能"
+    },
+    {
+      "source_id": "sensitive-comm-assistant",
+      "source_name": "敏感沟通助手",
+      "source_route": "/sensitive-comm",
+      "disposition": "work_skill",
+      "skill_ids": [
+        "sensitive-customer-communication"
+      ],
+      "reason": "已映射工作技能"
+    },
+    {
+      "source_id": "cd-unfreeze",
+      "source_name": "存单解冻通知书及手工备款材料生成工具",
+      "source_route": "/cd-unfreeze",
+      "disposition": "work_skill",
+      "skill_ids": [
+        "cd-unfreeze-manual-funding"
+      ],
+      "reason": "已映射工作技能"
+    },
+    {
+      "source_id": "batch-billing-generation",
+      "source_name": "项下开票本地下载工具包",
+      "source_route": "/batch-billing",
+      "disposition": "work_skill",
+      "skill_ids": [
+        "batch-billing-documents"
+      ],
+      "reason": "已映射工作技能"
+    },
+    {
+      "source_id": "discount-credit-workflow",
+      "source_name": "贴现/专门授信工作流",
+      "source_route": "/business-guide",
+      "disposition": "work_skill",
+      "skill_ids": [
+        "discount-credit-workflow"
+      ],
+      "reason": "已映射工作技能"
+    },
+    {
+      "source_id": "chang-rong-bao",
+      "source_name": "长融保",
+      "source_route": "/business-guide?product=chang_rong_bao",
+      "disposition": "work_skill",
+      "skill_ids": [
+        "bank-guarantee-product-matching"
+      ],
+      "reason": "已映射工作技能"
+    },
+    {
+      "source_id": "chang-yi-dan",
+      "source_name": "长易担",
+      "source_route": "/business-guide?product=chang_yi_dan",
+      "disposition": "work_skill",
+      "skill_ids": [
+        "bank-guarantee-product-matching"
+      ],
+      "reason": "已映射工作技能"
+    },
+    {
+      "source_id": "scenario-center",
+      "source_name": "场景中心",
+      "source_route": "/scenarios",
+      "disposition": "platform_navigation",
+      "skill_ids": [],
+      "reason": "平台/社区入口，不作为独立银行业务技能"
+    },
+    {
+      "source_id": "business-guide-main",
+      "source_name": "业务通 (产品打法库)",
+      "source_route": "/business-guide",
+      "disposition": "work_skill",
+      "skill_ids": [
+        "business-guide"
+      ],
+      "reason": "已映射工作技能"
+    },
+    {
+      "source_id": "material-checklist-main",
+      "source_name": "材料清单中心",
+      "source_route": "/material-checklist",
+      "disposition": "work_skill",
+      "skill_ids": [
+        "customer-credit-material-checklist",
+        "counter-business-material-checklist"
+      ],
+      "reason": "已映射工作技能"
+    },
+    {
+      "source_id": "bbs-center-main",
+      "source_name": "交流社区 (BBS)",
+      "source_route": "/bbs",
+      "disposition": "platform_navigation",
+      "skill_ids": [],
+      "reason": "平台/社区入口，不作为独立银行业务技能"
+    },
+    {
+      "source_id": "feng-shui-calendar",
+      "source_name": "打工风水历",
+      "source_route": "/scenarios?tab=self",
+      "disposition": "personal_or_fun",
+      "skill_ids": [],
+      "reason": "生活或趣味内容，保留原位置"
+    },
+    {
+      "source_id": "food-selector",
+      "source_name": "今天吃什么",
+      "source_route": "/scenarios?tab=self",
+      "disposition": "personal_or_fun",
+      "skill_ids": [],
+      "reason": "生活或趣味内容，保留原位置"
+    },
+    {
+      "source_id": "off-duty-game",
+      "source_name": "高效下班清醒系统",
+      "source_route": "/scenarios?tab=self",
+      "disposition": "personal_or_fun",
+      "skill_ids": [],
+      "reason": "生活或趣味内容，保留原位置"
+    },
+    {
+      "source_id": "update-log-main",
+      "source_name": "更新日志",
+      "source_route": "/updates",
+      "disposition": "platform_navigation",
+      "skill_ids": [],
+      "reason": "平台/社区入口，不作为独立银行业务技能"
+    },
+    {
+      "source_id": "feedback-main",
+      "source_name": "反馈建议",
+      "source_route": "/feedback",
+      "disposition": "platform_navigation",
+      "skill_ids": [],
+      "reason": "平台/社区入口，不作为独立银行业务技能"
+    },
+    {
+      "source_id": "industry-manufacturing",
+      "source_name": "制造业行业洞察",
+      "source_route": "/business-guide?tab=guide&type=industry",
+      "disposition": "work_skill",
+      "skill_ids": [
+        "manufacturing-credit-research"
+      ],
+      "reason": "已映射工作技能"
+    },
+    {
+      "source_id": "industry-tech",
+      "source_name": "科技企业行业洞察",
+      "source_route": "/business-guide?tab=guide&type=industry",
+      "disposition": "work_skill",
+      "skill_ids": [
+        "technology-credit-research"
+      ],
+      "reason": "已映射工作技能"
+    },
+    {
+      "source_id": "scenario-first-visit",
+      "source_name": "首次拜访策略",
+      "source_route": "/business-guide?tab=guide&type=scenario",
+      "disposition": "work_skill",
+      "skill_ids": [
+        "first-customer-visit"
+      ],
+      "reason": "已映射工作技能"
+    },
+    {
+      "source_id": "scenario-competitor",
+      "source_name": "竞争对手挖角策略",
+      "source_route": "/business-guide?tab=guide&type=scenario",
+      "disposition": "work_skill",
+      "skill_ids": [
+        "competitor-customer-conversion"
+      ],
+      "reason": "已映射工作技能"
+    },
+    {
+      "source_id": "bbs-feed",
+      "source_name": "实战动态 (Feed)",
+      "source_route": "/bbs",
+      "disposition": "platform_navigation",
+      "skill_ids": [],
+      "reason": "平台/社区入口，不作为独立银行业务技能"
+    },
+    {
+      "source_id": "bbs-publish",
+      "source_name": "经验发布",
+      "source_route": "/bbs",
+      "disposition": "platform_navigation",
+      "skill_ids": [],
+      "reason": "平台/社区入口，不作为独立银行业务技能"
+    },
+    {
+      "source_id": "messages-center",
+      "source_name": "消息中心",
+      "source_route": "/bbs",
+      "disposition": "platform_navigation",
+      "skill_ids": [],
+      "reason": "平台/社区入口，不作为独立银行业务技能"
+    },
+    {
+      "source_id": "profile-main",
+      "source_name": "个人中心 (展业看板)",
+      "source_route": "/profile",
+      "disposition": "platform_navigation",
+      "skill_ids": [],
+      "reason": "平台/社区入口，不作为独立银行业务技能"
+    }
+  ],
+  "additional_sources": [
+    {
+      "source": "components/tools/UnderInvoiceWorkflow.tsx",
+      "skill_ids": [
+        "under-invoice-workflow"
+      ]
+    },
+    {
+      "source": "https://github.com/Daisyhu668/vscode-codeskills/tree/main/shouxin-report",
+      "skill_ids": [
+        "shouxin-report"
+      ]
+    },
+    {
+      "source": "https://github.com/Daisyhu668/open-account",
+      "skill_ids": [
+        "account-opening-due-diligence"
+      ]
+    },
+    {
+      "source": "https://github.com/Daisyhu668/openandclose",
+      "skill_ids": [
+        "account-closing-due-diligence"
+      ]
+    },
+    {
+      "source": "https://github.com/Daisyhu668/-",
+      "skill_ids": [
+        "acceptance-deposit-calculation"
+      ]
+    },
+    {
+      "source": "https://github.com/Daisyhu668/ohhhhaaaa",
+      "skill_ids": [
+        "rate-discount-report"
+      ]
+    }
+  ]
+}

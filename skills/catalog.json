@@ -1,0 +1,636 @@
+{
+  "schema_version": 1,
+  "workspace": "工作技能区",
+  "canonical_repository": "Daisyhu668/Finish-work-early",
+  "canonical_directory": "skills/",
+  "updated": "2026-11-07",
+  "entrypoint": "skills/work-skills-router/SKILL.md",
+  "status_meanings": {
+    "workflow": "可按说明指导起草；不代表自动执行引擎",
+    "connected_apps": "依赖连接器与当前授权",
+    "offline_engine": "已有脚本；依赖环境/模板并需实际运行核验",
+    "template_required": "办理规范已入库；正式产出依赖原模板/制度/材料",
+    "external_dependency": "统一入口已入库；实际代码/模板仍在来源仓库"
+  },
+  "skills": [
+    {
+      "id": "personal-work-assistant",
+      "name": "日常主动工作助理",
+      "category": "日常执行",
+      "path": "skills/personal-work-assistant/SKILL.md",
+      "triggers": [
+        "今天待办",
+        "工作成果",
+        "收件箱"
+      ],
+      "sources": [
+        "skills/personal-work-assistant/references/workflow.md"
+      ],
+      "status": "connected_apps",
+      "limitation": "依赖已连接应用；不是服务器同步服务",
+      "template_paths": []
+    },
+    {
+      "id": "loan-maturity-relay-and-credit-expiry",
+      "name": "借据接力贷与额度到期",
+      "category": "贷后与期限",
+      "path": "skills/loan-maturity-relay-and-credit-expiry/SKILL.md",
+      "triggers": [
+        "借据到期",
+        "接力贷",
+        "额度到期",
+        "续授信"
+      ],
+      "sources": [
+        "skills/loan-maturity-relay-and-credit-expiry/SKILL.md"
+      ],
+      "status": "workflow",
+      "limitation": "必须读取最新合同及本期任务；借据与额度独立",
+      "template_paths": []
+    },
+    {
+      "id": "customer-credit-material-checklist",
+      "name": "客户专属授信材料清单",
+      "category": "材料与调查",
+      "path": "skills/customer-credit-material-checklist/SKILL.md",
+      "triggers": [
+        "材料清单",
+        "授信材料",
+        "年审",
+        "续授信材料"
+      ],
+      "sources": [
+        "data/checklistData.ts",
+        "components/tools/ChecklistGenerator.tsx"
+      ],
+      "status": "workflow",
+      "limitation": "需读取客户已有材料及当前产品清单",
+      "template_paths": []
+    },
+    {
+      "id": "bankpro-invoice-two-stage",
+      "name": "发票登记与银承关联",
+      "category": "票据与存单",
+      "path": "skills/bankpro-invoice-two-stage/SKILL.md",
+      "triggers": [
+        "整理发票",
+        "发票登记",
+        "选票",
+        "BI关联",
+        "InvoiceInfo",
+        "InvoiceLogInfo"
+      ],
+      "sources": [
+        "skills/bankpro-invoice-two-stage/scripts/case_workflow.py"
+      ],
+      "status": "offline_engine",
+      "limitation": "原版xls须授权本地提供；保真写入依赖Windows Excel和pywin32；离线通过不代表行内导入成功",
+      "template_paths": []
+    },
+    {
+      "id": "cd-unfreeze-manual-funding",
+      "name": "存单解冻与手工备款",
+      "category": "票据与存单",
+      "path": "skills/cd-unfreeze-manual-funding/SKILL.md",
+      "triggers": [
+        "存单解冻",
+        "解除质押",
+        "手工备款",
+        "001-解冻"
+      ],
+      "sources": [
+        "skills/cd-unfreeze-manual-funding/run.py",
+        "components/tools/CDUnfreezeTool.tsx"
+      ],
+      "status": "template_required",
+      "limitation": "需核实真实本息、逐票正式票号及营业安排",
+      "template_paths": [
+        "public/templates/cd-unfreeze/cd-unfreeze-notice.docx",
+        "public/templates/cd-unfreeze/manual-backing-list.xlsx"
+      ]
+    },
+    {
+      "id": "prepay-corporate-loan",
+      "name": "提前还款申请",
+      "category": "贷后与期限",
+      "path": "skills/prepay-corporate-loan/SKILL.md",
+      "triggers": [
+        "提前还款",
+        "提前结清"
+      ],
+      "sources": [
+        "skills/prepay-corporate-loan/scripts/fill_form.py"
+      ],
+      "status": "offline_engine",
+      "limitation": "固定两联模板，未知项留空；草稿不等于结清",
+      "template_paths": [
+        "skills/prepay-corporate-loan/assets/prepayment_application_blank.docx"
+      ]
+    },
+    {
+      "id": "work-skills-router",
+      "name": "工作技能统一入口",
+      "category": "日常执行",
+      "path": "skills/work-skills-router/SKILL.md",
+      "triggers": [
+        "工作技能",
+        "日常工作",
+        "待办调用技能",
+        "新增工作技能"
+      ],
+      "sources": [
+        "skills/catalog.json",
+        "skills/source-map.json",
+        "skills/personal-work-assistant/SKILL.md"
+      ],
+      "status": "workflow",
+      "limitation": "",
+      "template_paths": []
+    },
+    {
+      "id": "acceptance-deposit-calculation",
+      "name": "银承与存单测算",
+      "category": "票据与存单",
+      "path": "skills/acceptance-deposit-calculation/SKILL.md",
+      "triggers": [
+        "银承测算",
+        "存单测算",
+        "一年期银承",
+        "半年期银承",
+        "开票金额测算"
+      ],
+      "sources": [
+        "components/tools/AcceptanceCalculator.tsx",
+        "components/tools/UnderInvoiceWorkflow.tsx"
+      ],
+      "status": "workflow",
+      "limitation": "现有网页有半年默认和示例参数；本技能按真实日期复算，不修改网页实现。",
+      "template_paths": []
+    },
+    {
+      "id": "under-invoice-workflow",
+      "name": "银承项下全链路备稿",
+      "category": "票据与存单",
+      "path": "skills/under-invoice-workflow/SKILL.md",
+      "triggers": [
+        "项下开票",
+        "银承预约",
+        "质押登记",
+        "中登登记",
+        "银承续开"
+      ],
+      "sources": [
+        "components/tools/UnderInvoiceWorkflow.tsx",
+        "skills/bankpro-invoice-two-stage/SKILL.md"
+      ],
+      "status": "workflow",
+      "limitation": "既有网页支持文本及JSON导出，不代表已具备行内Word/Excel全套批量生成或系统提交。",
+      "template_paths": []
+    },
+    {
+      "id": "batch-billing-documents",
+      "name": "批量开票文书与明细",
+      "category": "票据与存单",
+      "path": "skills/batch-billing-documents/SKILL.md",
+      "triggers": [
+        "批量开票",
+        "项下开票材料",
+        "开票工具包",
+        "批量生成开票文书"
+      ],
+      "sources": [
+        "components/tools/BatchBillingTool.tsx",
+        "components/tools/UnderInvoiceWorkflow.tsx"
+      ],
+      "status": "template_required",
+      "limitation": "当前网页批量下载及文书生成是占位实现；正式文书依赖用户原模板，不能当作已实现的一键工具。",
+      "template_paths": []
+    },
+    {
+      "id": "account-fee-discount",
+      "name": "账户费用优惠申请",
+      "category": "OA与文稿",
+      "path": "skills/account-fee-discount/SKILL.md",
+      "triggers": [
+        "账户费用优惠",
+        "费用减免",
+        "中收优惠"
+      ],
+      "sources": [
+        "components/tools/FeeDiscountTool.tsx"
+      ],
+      "status": "workflow",
+      "limitation": "已有网页Excel导出与规则文案；现行标准及权限需另核。",
+      "template_paths": []
+    },
+    {
+      "id": "rate-discount-report",
+      "name": "利率优惠签报",
+      "category": "OA与文稿",
+      "path": "skills/rate-discount-report/SKILL.md",
+      "triggers": [
+        "利率优惠",
+        "贷款定价",
+        "优惠签报"
+      ],
+      "sources": [
+        "components/tools/RateOfferTool.tsx",
+        "lib/exportDocx.ts"
+      ],
+      "status": "workflow",
+      "limitation": "网页为历史规则文案辅助；报价、LPR、FTP和权限须逐笔核实。",
+      "template_paths": []
+    },
+    {
+      "id": "bank-news-typesetting",
+      "name": "银行宣传稿与排版",
+      "category": "OA与文稿",
+      "path": "skills/bank-news-typesetting/SKILL.md",
+      "triggers": [
+        "厦行信息",
+        "银行宣传稿",
+        "新闻稿排版",
+        "投稿"
+      ],
+      "sources": [
+        "components/tools/NewsTypesettingAssistant.tsx",
+        "public/guides/document-typesetting.html"
+      ],
+      "status": "workflow",
+      "limitation": "",
+      "template_paths": []
+    },
+    {
+      "id": "sensitive-customer-communication",
+      "name": "敏感客户沟通",
+      "category": "客户经营",
+      "path": "skills/sensitive-customer-communication/SKILL.md",
+      "triggers": [
+        "收费通知",
+        "利率调整",
+        "授信暂缓",
+        "拒贷沟通",
+        "敏感沟通"
+      ],
+      "sources": [
+        "components/tools/SensitiveCommAssistant.tsx",
+        "public/guides/customer-communication.html"
+      ],
+      "status": "workflow",
+      "limitation": "",
+      "template_paths": []
+    },
+    {
+      "id": "bank-guarantee-product-matching",
+      "name": "银担产品匹配与方案检核",
+      "category": "授信与分析",
+      "path": "skills/bank-guarantee-product-matching/SKILL.md",
+      "triggers": [
+        "长融保",
+        "长易担",
+        "银担产品",
+        "产品匹配",
+        "检核表"
+      ],
+      "sources": [
+        "content/businessGuideProducts.ts",
+        "content/productMessagingPacks.ts",
+        "components/tools/checklist-generator/logic.ts"
+      ],
+      "status": "workflow",
+      "limitation": "源码产品参数为历史口径，使用前必须核本次有效制度；正式表依赖原模板。",
+      "template_paths": []
+    },
+    {
+      "id": "manufacturing-credit-research",
+      "name": "制造业客户经营与授信分析",
+      "category": "授信与分析",
+      "path": "skills/manufacturing-credit-research/SKILL.md",
+      "triggers": [
+        "制造业行业洞察",
+        "制造业客户分析"
+      ],
+      "sources": [
+        "content/businessGuideGuideData.ts",
+        "content/businessGuideProducts.ts"
+      ],
+      "status": "workflow",
+      "limitation": "",
+      "template_paths": []
+    },
+    {
+      "id": "technology-credit-research",
+      "name": "科技企业经营与授信分析",
+      "category": "授信与分析",
+      "path": "skills/technology-credit-research/SKILL.md",
+      "triggers": [
+        "科技企业行业洞察",
+        "研发分析",
+        "科技客户分析"
+      ],
+      "sources": [
+        "content/businessGuideGuideData.ts",
+        "content/businessGuideProducts.ts"
+      ],
+      "status": "workflow",
+      "limitation": "",
+      "template_paths": []
+    },
+    {
+      "id": "business-guide",
+      "name": "业务通与综合产品打法",
+      "category": "客户经营",
+      "path": "skills/business-guide/SKILL.md",
+      "triggers": [
+        "业务通",
+        "贸易业分析",
+        "台企分析",
+        "客户主动问融资",
+        "产品打法"
+      ],
+      "sources": [
+        "components/tools/BusinessGuide.tsx",
+        "content/businessGuideGuideData.ts",
+        "content/businessGuideProducts.ts",
+        "content/productConfig.ts"
+      ],
+      "status": "workflow",
+      "limitation": "",
+      "template_paths": []
+    },
+    {
+      "id": "first-customer-visit",
+      "name": "首次客户拜访与走访记录",
+      "category": "客户经营",
+      "path": "skills/first-customer-visit/SKILL.md",
+      "triggers": [
+        "首次拜访",
+        "客户走访",
+        "初访准备",
+        "走访纪要"
+      ],
+      "sources": [
+        "content/businessGuideGuideData.ts",
+        "components/tools/BusinessGuide.tsx"
+      ],
+      "status": "workflow",
+      "limitation": "",
+      "template_paths": []
+    },
+    {
+      "id": "competitor-customer-conversion",
+      "name": "他行客户转化策略",
+      "category": "客户经营",
+      "path": "skills/competitor-customer-conversion/SKILL.md",
+      "triggers": [
+        "竞争客户",
+        "他行客户",
+        "挖角策略",
+        "客户转化"
+      ],
+      "sources": [
+        "content/businessGuideGuideData.ts",
+        "content/businessGuideProducts.ts"
+      ],
+      "status": "workflow",
+      "limitation": "",
+      "template_paths": []
+    },
+    {
+      "id": "counter-business-material-checklist",
+      "name": "开户销户及柜面材料清单",
+      "category": "材料与调查",
+      "path": "skills/counter-business-material-checklist/SKILL.md",
+      "triggers": [
+        "开户材料",
+        "销户材料",
+        "变更材料",
+        "久悬户",
+        "柜面清单"
+      ],
+      "sources": [
+        "data/checklistData.ts",
+        "components/MaterialChecklistCenter.tsx"
+      ],
+      "status": "workflow",
+      "limitation": "",
+      "template_paths": []
+    },
+    {
+      "id": "account-opening-due-diligence",
+      "name": "开户尽职调查预填",
+      "category": "材料与调查",
+      "path": "skills/account-opening-due-diligence/SKILL.md",
+      "triggers": [
+        "开户尽调",
+        "开户调查表"
+      ],
+      "sources": [
+        "https://github.com/Daisyhu668/open-account"
+      ],
+      "status": "external_dependency",
+      "limitation": "源仓库保留代码和历史模板；当前技能为统一办理入口，须取本次授权原模板，不重复上传未经检查的旧模板。",
+      "template_paths": []
+    },
+    {
+      "id": "account-closing-due-diligence",
+      "name": "销户尽职调查预填",
+      "category": "材料与调查",
+      "path": "skills/account-closing-due-diligence/SKILL.md",
+      "triggers": [
+        "销户尽调",
+        "销户调查表"
+      ],
+      "sources": [
+        "https://github.com/Daisyhu668/openandclose"
+      ],
+      "status": "external_dependency",
+      "limitation": "源仓库保留代码和历史模板；当前技能为统一办理入口，须取本次授权原模板，不重复上传未经检查的旧模板。",
+      "template_paths": []
+    },
+    {
+      "id": "enterprise-size-classification",
+      "name": "企业划型与ECIF佐证材料",
+      "category": "材料与调查",
+      "path": "skills/enterprise-size-classification/SKILL.md",
+      "triggers": [
+        "企业划型",
+        "001-划型",
+        "划型佐证",
+        "ECIF佐证"
+      ],
+      "sources": [
+        "skills/_shared/WORKFLOW.md"
+      ],
+      "status": "template_required",
+      "limitation": "已形成办理规范；固定Excel原模板及当前划型标准须在业务环境提供。",
+      "template_paths": []
+    },
+    {
+      "id": "beneficial-owner-evidence",
+      "name": "受益所有人穿透与证据整理",
+      "category": "材料与调查",
+      "path": "skills/beneficial-owner-evidence/SKILL.md",
+      "triggers": [
+        "受益所有人",
+        "股权穿透",
+        "境外股东",
+        "查册材料",
+        "001-受益所有人"
+      ],
+      "sources": [
+        "data/checklistData.ts",
+        "skills/counter-business-material-checklist/SKILL.md"
+      ],
+      "status": "template_required",
+      "limitation": "需要本次有效识别规则、境外登记证据和两表原版；不将源码历史阈值视作现行规定。",
+      "template_paths": []
+    },
+    {
+      "id": "working-capital-calculation",
+      "name": "流动资金贷款需求测算",
+      "category": "授信与分析",
+      "path": "skills/working-capital-calculation/SKILL.md",
+      "triggers": [
+        "流贷测算",
+        "营运资金",
+        "流动资金需求",
+        "周转天数"
+      ],
+      "sources": [
+        "components/tools/checklist-generator/logic.ts",
+        "skills/normalizing-corporate-financial-statements/SKILL.md",
+        "skills/shouxin-report/SKILL.md"
+      ],
+      "status": "template_required",
+      "limitation": "不同产品检核表不能替代通用流贷原测算公式；未提供原公式/模板时只整理输入和缺口。",
+      "template_paths": []
+    },
+    {
+      "id": "credit-limit-unfreeze",
+      "name": "重大预警额度解冻申请",
+      "category": "贷后与期限",
+      "path": "skills/credit-limit-unfreeze/SKILL.md",
+      "triggers": [
+        "额度解冻",
+        "重大预警冻结",
+        "接力贷解冻"
+      ],
+      "sources": [
+        "skills/loan-maturity-relay-and-credit-expiry/SKILL.md"
+      ],
+      "status": "template_required",
+      "limitation": "申请模板与当前审批依据需授权提供；此为备稿规范，不具备银行系统解冻权限。",
+      "template_paths": []
+    },
+    {
+      "id": "credit-contract-sealing",
+      "name": "授信合同封包与用印沟通",
+      "category": "OA与文稿",
+      "path": "skills/credit-contract-sealing/SKILL.md",
+      "triggers": [
+        "授信合同用印",
+        "合同封包",
+        "信托用印",
+        "法审回复"
+      ],
+      "sources": [
+        "skills/_shared/WORKFLOW.md"
+      ],
+      "status": "workflow",
+      "limitation": "",
+      "template_paths": []
+    },
+    {
+      "id": "weekly-work-report",
+      "name": "按客户汇总工作周报",
+      "category": "日常执行",
+      "path": "skills/weekly-work-report/SKILL.md",
+      "triggers": [
+        "周报",
+        "晨会汇报",
+        "月度工作汇报",
+        "领导进度汇报"
+      ],
+      "sources": [
+        "skills/personal-work-assistant/SKILL.md",
+        "workflows/personal-work-assistant/maintenance.md"
+      ],
+      "status": "workflow",
+      "limitation": "",
+      "template_paths": []
+    },
+    {
+      "id": "kpi-self-review",
+      "name": "客户经理KPI自评与冲刺分析",
+      "category": "授信与分析",
+      "path": "skills/kpi-self-review/SKILL.md",
+      "triggers": [
+        "KPI分析",
+        "排名下降",
+        "考核自评",
+        "认领攻略",
+        "存款贷款经营分析"
+      ],
+      "sources": [
+        "skills/_shared/WORKFLOW.md"
+      ],
+      "status": "workflow",
+      "limitation": "需要本次实际报表与考核公式，不能从旧排名或认领金额直接推算当前得分。",
+      "template_paths": []
+    },
+    {
+      "id": "shouxin-report",
+      "name": "固定模板授信调查报告",
+      "category": "授信与分析",
+      "path": "skills/shouxin-report/SKILL.md",
+      "triggers": [
+        "授信报告",
+        "调查报告",
+        "审查意见回复",
+        "报告优化"
+      ],
+      "sources": [
+        "https://github.com/Daisyhu668/vscode-codeskills/tree/main/shouxin-report"
+      ],
+      "status": "template_required",
+      "limitation": "完整办理规范已归入；正式原模板和本户资料需提供",
+      "template_paths": []
+    },
+    {
+      "id": "normalizing-corporate-financial-statements",
+      "name": "财报转换与勾稽核验",
+      "category": "授信与分析",
+      "path": "skills/normalizing-corporate-financial-statements/SKILL.md",
+      "triggers": [
+        "财报转换",
+        "财报标准化",
+        "财务报表整理"
+      ],
+      "sources": [
+        "skills/normalizing-corporate-financial-statements/SKILL.md"
+      ],
+      "status": "template_required",
+      "limitation": "原银行Excel需提供；先后校验，禁止强行配平",
+      "template_paths": []
+    },
+    {
+      "id": "discount-credit-workflow",
+      "name": "贴现专门授信办理",
+      "category": "授信与分析",
+      "path": "skills/discount-credit-workflow/SKILL.md",
+      "triggers": [
+        "贴现授信",
+        "专门授信",
+        "贴现调查报告"
+      ],
+      "sources": [
+        "https://github.com/Daisyhu668/discount-credit-workflow-skill",
+        "https://github.com/Daisyhu668/discount-credit-workflow-skill/blob/main/references/required-checklist.md"
+      ],
+      "status": "external_dependency",
+      "limitation": "统一入口在主工作区，实际Python引擎与历史模板仍由专仓维护；本区不重复复制未经检查的历史模板。",
+      "template_paths": []
+    }
+  ]
+}

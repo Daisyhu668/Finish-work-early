@@ -1,0 +1,4 @@
+interface:
+  display_name: "银承与存单测算"
+  short_description: "依据当前业务资料办理银承与存单测算，保留原始模板并核对实际进度"
+  default_prompt: "请使用 $acceptance-deposit-calculation 处理当前客户对应事项，先核对最新资料并交付可用成果。"
