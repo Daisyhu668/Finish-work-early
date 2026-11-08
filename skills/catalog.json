@@ -3,7 +3,7 @@
   "workspace": "工作技能区",
   "canonical_repository": "Daisyhu668/Finish-work-early",
   "canonical_directory": "skills/",
-  "updated": "2026-11-07",
+  "updated": "2026-11-08",
   "entrypoint": "skills/work-skills-router/SKILL.md",
   "status_meanings": {
     "workflow": "可按说明指导起草；不代表自动执行引擎",
@@ -21,10 +21,14 @@
       "triggers": [
         "今天待办",
         "工作成果",
-        "收件箱"
+        "收件箱",
+        "清理记忆",
+        "清理内存",
+        "技能沉淀"
       ],
       "sources": [
-        "skills/personal-work-assistant/references/workflow.md"
+        "skills/personal-work-assistant/references/workflow.md",
+        "skills/personal-work-assistant/references/memory-hygiene.md"
       ],
       "status": "connected_apps",
       "limitation": "依赖已连接应用；不是服务器同步服务",
@@ -39,10 +43,14 @@
         "借据到期",
         "接力贷",
         "额度到期",
-        "续授信"
+        "续授信",
+        "客户移交",
+        "共同认领",
+        "移交客户汇报"
       ],
       "sources": [
-        "skills/loan-maturity-relay-and-credit-expiry/SKILL.md"
+        "skills/loan-maturity-relay-and-credit-expiry/SKILL.md",
+        "skills/loan-maturity-relay-and-credit-expiry/references/handover-review.md"
       ],
       "status": "workflow",
       "limitation": "必须读取最新合同及本期任务；借据与额度独立",
@@ -588,10 +596,14 @@
         "授信报告",
         "调查报告",
         "审查意见回复",
-        "报告优化"
+        "报告优化",
+        "重组审查回复",
+        "风险客户面访",
+        "贷款重组方案"
       ],
       "sources": [
-        "https://github.com/Daisyhu668/vscode-codeskills/tree/main/shouxin-report"
+        "https://github.com/Daisyhu668/vscode-codeskills/tree/main/shouxin-report",
+        "skills/shouxin-report/references/restructuring-review.md"
       ],
       "status": "template_required",
       "limitation": "完整办理规范已归入；正式原模板和本户资料需提供",

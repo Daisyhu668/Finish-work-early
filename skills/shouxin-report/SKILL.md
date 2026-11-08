@@ -408,3 +408,6 @@ When updating:
 ## 来源与依赖
 
 移入自 https://github.com/Daisyhu668/vscode-codeskills/tree/main/shouxin-report ，保留原有授信流程并修正不可移植的本地绝对路径。实际调查报告原模板须由用户在授权业务环境提供；本包没有虚构模板。正式内容必须以证据为准，不因消除内部待核措辞而编造结论。
+
+## 风险客户重组与审查回复
+涉及重组、风险客户面访或重组审查回复时，先读取[重组审查流程](references/restructuring-review.md)，再回到本技能原模板填制及审查流程。使用本户当期资料，区分自述、核验、拟申请与已批复；不得套用历史案例条款。

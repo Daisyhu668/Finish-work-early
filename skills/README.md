@@ -74,6 +74,16 @@
 | [财报转换与勾稽核验](normalizing-corporate-financial-statements/SKILL.md) | 财报转换、财报标准化、财务报表整理 | 依赖本次原模板/资料 |
 | [贴现专门授信办理](discount-credit-workflow/SKILL.md) | 贴现授信、专门授信、贴现调查报告 | 外部代码/模板依赖 |
 
+## 按需补充流程
+
+沿用现有33项技能，新增流程直接归入原技能，避免重复入口。
+
+| 请求 | 原技能内的流程 |
+| --- | --- |
+| 清理记忆、沉淀技能 | [记忆精简与技能沉淀](personal-work-assistant/references/memory-hygiene.md) |
+| 移交客户、共同认领核对 | [移交客户与借据核对](loan-maturity-relay-and-credit-expiry/references/handover-review.md) |
+| 风险面访、重组审查回复 | [风险客户重组与审查](shouxin-report/references/restructuring-review.md) |
+
 ## 使用示例
 
 | 待办/请求 | 调用顺序 |

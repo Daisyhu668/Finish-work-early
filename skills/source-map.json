@@ -288,6 +288,24 @@
       "skill_ids": [
         "rate-discount-report"
       ]
+    },
+    {
+      "source": "skills/personal-work-assistant/references/memory-hygiene.md",
+      "skill_ids": [
+        "personal-work-assistant"
+      ]
+    },
+    {
+      "source": "skills/loan-maturity-relay-and-credit-expiry/references/handover-review.md",
+      "skill_ids": [
+        "loan-maturity-relay-and-credit-expiry"
+      ]
+    },
+    {
+      "source": "skills/shouxin-report/references/restructuring-review.md",
+      "skill_ids": [
+        "shouxin-report"
+      ]
     }
   ]
 }
