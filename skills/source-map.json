@@ -312,6 +312,12 @@
       "skill_ids": [
         "enterprise-size-classification"
       ]
+    },
+    {
+      "source": "skills/enterprise-size-classification/scripts/preflight.py",
+      "skill_ids": [
+        "enterprise-size-classification"
+      ]
     }
   ]
 }

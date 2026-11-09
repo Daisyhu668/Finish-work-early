@@ -83,4 +83,11 @@ class PackageTests(unittest.TestCase):
         bad=subprocess.run(command+['--audit',str(self.base/'cli/overwrite.json')],capture_output=True,text=True)
         self.assertNotEqual(bad.returncode,0)
 
+    def test_formal_builder_cannot_bypass_unresolved_label_conflict(self):
+        c=copy.deepcopy(self.case)
+        c['existing_labels']=[{'value':'小型','source':'synthetic old form'},{'value':'中型','source':'synthetic external label'}]
+        with self.assertRaisesRegex(ValueError,'prior_labels_conflict'):
+            build(c,self.rules,self.base/'blocked-conflict')
+        self.assertFalse((self.base/'blocked-conflict').exists())
+
 if __name__=='__main__':unittest.main()

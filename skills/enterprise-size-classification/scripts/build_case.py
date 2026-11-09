@@ -7,6 +7,7 @@ import shutil
 import tempfile
 from zipfile import ZipFile
 from classify import classify
+from preflight import inspect as preflight_inspect
 from template_io import patch, manifest, digest
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -45,6 +46,10 @@ def build(case, rules, outdir):
     result=None
     if branch=='annual_no_update': values['B7']='存量授信客户年审，本次未涉及划型更新。'
     else:
+        readiness=preflight_inspect(case,rules)
+        if readiness['status']!='ready_for_formal_preparation':
+            gaps=[x['code']+':'+x['field'] for x in readiness['issues'] if x['blocking']]
+            raise ValueError('preflight blocked: '+', '.join(gaps))
         required=['identity_confirmed','industry_confirmed','metrics_confirmed','period_confirmed','policy_applicability_confirmed']
         if any(case.get(k) is not True for k in required): raise ValueError('identity, industry, metrics, period and policy confirmations required')
         if 'employees' in rules['industries'].get(case['industry'],{}) and case.get('staff_basis') not in {'employees_year_end','annual_average'}:

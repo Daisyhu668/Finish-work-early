@@ -25,6 +25,14 @@ description: 企业规模划型与ECIF佐证材料。用户说“企业划型”
 
 先看命令`--help`。所有客户输入、审计与输出放授权私有目录，不放技能或公开仓库。
 
+先执行只读预检，一次列全缺口和历史结论冲突，避免反复询问或生成假完整件：
+
+```bash
+python3 scripts/preflight.py --input /private/case.json --rules /private/approved_bank_rules.json --output /private/preflight.json
+```
+
+尚无行内规则时省略--rules，仅使用参考配置预检并明确阻断正式出件。旧检核表、外部平台的规模标签不一致时，在输入existing_labels分别保留值及来源，不能直接选一个覆盖；外部“中型/小型”标签不是本次银行划型依据。参保数保留原口径，不塞入employees。
+
 参考计算：
 
 ```bash

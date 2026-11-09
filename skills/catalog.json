@@ -468,12 +468,13 @@
         "ECIF佐证"
       ],
       "sources": [
+        "skills/enterprise-size-classification/scripts/preflight.py",
         "skills/enterprise-size-classification/scripts/classify.py",
         "skills/enterprise-size-classification/scripts/build_case.py",
         "skills/enterprise-size-classification/references/rule-policy.md"
       ],
       "status": "offline_engine",
-      "limitation": "原格式空白模板、16行业参考运算、白名单填表及证据PDF打包脚本已随包；正式行内结论需经核有效行内规则和真实本户证据。查询/OCR按已授权能力办理，不宣称接口已接通。",
+      "limitation": "随包原格式空白模板、16行业参考运算、出件前缺项及历史标签冲突预检、白名单填表和PDF打包脚本；正式结论须核有效行内规则与本户真实证据，参保人数不自动当从业人数。",
       "template_paths": [
         "skills/enterprise-size-classification/assets/授信企业划型检核表_原模板.xlsx"
       ]
