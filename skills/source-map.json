@@ -306,6 +306,12 @@
       "skill_ids": [
         "shouxin-report"
       ]
+    },
+    {
+      "source": "skills/enterprise-size-classification/scripts/build_case.py",
+      "skill_ids": [
+        "enterprise-size-classification"
+      ]
     }
   ]
 }

@@ -1,4 +1,4 @@
 interface:
-  display_name: "企业划型与ECIF佐证材料"
-  short_description: "依据当前业务资料办理企业划型与ECIF佐证材料，保留原始模板并核对实际进度"
-  default_prompt: "请使用 $enterprise-size-classification 处理当前客户对应事项，先核对最新资料并交付可用成果。"
+  display_name: "企业划型与ECIF佐证"
+  short_description: "核主营与年度指标，保留银行原模板并整理三份真实证据PDF"
+  default_prompt: "请使用 $enterprise-size-classification 为这家企业办理划型，先核业务分支、原始资料与有效行内规则，保留原模板格式。"

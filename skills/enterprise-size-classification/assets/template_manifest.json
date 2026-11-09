@@ -1,0 +1,22 @@
+{
+  "file": "授信企业划型检核表_原模板.xlsx",
+  "sha256": "c5cc8599bf53d11e167a52b5c06e3f9526579861f172d0169dbc290e286e0157",
+  "template_title": "企业划型检核表（2023年11月15日更新）",
+  "sheet": "xl/worksheets/sheet1.xml",
+  "editable_cells": [
+    "A2",
+    "B10",
+    "B16",
+    "B22",
+    "B4",
+    "B6",
+    "B7",
+    "B9"
+  ],
+  "locked_status_cells": [
+    "B26",
+    "B27"
+  ],
+  "sanitization": "仅清除白名单填值及其未被固定正文引用的共享字符串，保留所有其他模板部件。",
+  "note": "B26/B27为原模板既有固定文字，不表示本次检视或上挂已实际完成。"
+}

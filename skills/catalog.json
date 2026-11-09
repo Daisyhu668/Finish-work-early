@@ -3,7 +3,7 @@
   "workspace": "工作技能区",
   "canonical_repository": "Daisyhu668/Finish-work-early",
   "canonical_directory": "skills/",
-  "updated": "2026-11-08",
+  "updated": "2026-11-09",
   "entrypoint": "skills/work-skills-router/SKILL.md",
   "status_meanings": {
     "workflow": "可按说明指导起草；不代表自动执行引擎",
@@ -468,11 +468,15 @@
         "ECIF佐证"
       ],
       "sources": [
-        "skills/_shared/WORKFLOW.md"
+        "skills/enterprise-size-classification/scripts/classify.py",
+        "skills/enterprise-size-classification/scripts/build_case.py",
+        "skills/enterprise-size-classification/references/rule-policy.md"
       ],
-      "status": "template_required",
-      "limitation": "已形成办理规范；固定Excel原模板及当前划型标准须在业务环境提供。",
-      "template_paths": []
+      "status": "offline_engine",
+      "limitation": "原格式空白模板、16行业参考运算、白名单填表及证据PDF打包脚本已随包；正式行内结论需经核有效行内规则和真实本户证据。查询/OCR按已授权能力办理，不宣称接口已接通。",
+      "template_paths": [
+        "skills/enterprise-size-classification/assets/授信企业划型检核表_原模板.xlsx"
+      ]
     },
     {
       "id": "beneficial-owner-evidence",

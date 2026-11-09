@@ -1,0 +1,200 @@
+{
+  "rule_id": "MIIT-2011-300-public-reference",
+  "verified_on": "2026-11-09",
+  "effective_from": "2011-07-04",
+  "effective_to": null,
+  "bank_approved": false,
+  "policy_document": null,
+  "approved_version": null,
+  "currency": "CNY",
+  "money_unit": "万元",
+  "sources": [
+    "https://www.miit.gov.cn/jgsj/qyj/wjfb/art/2011/art_235af1ade45c4865957adeed23f9d949.html",
+    "https://www.stats.gov.cn/sj/tjbz/gjtjbz/202302/t20230213_1902763.html"
+  ],
+  "logic": "All applicable indicators must meet tier lower bounds; take the lowest indicator tier. Unknown is not zero.",
+  "industries": {
+    "农、林、牧、渔业": {
+      "revenue_wan": [
+        50,
+        500,
+        20000
+      ]
+    },
+    "工业": {
+      "employees": [
+        20,
+        300,
+        1000
+      ],
+      "revenue_wan": [
+        300,
+        2000,
+        40000
+      ]
+    },
+    "建筑业": {
+      "revenue_wan": [
+        300,
+        6000,
+        80000
+      ],
+      "assets_wan": [
+        300,
+        5000,
+        80000
+      ]
+    },
+    "批发业": {
+      "employees": [
+        5,
+        20,
+        200
+      ],
+      "revenue_wan": [
+        1000,
+        5000,
+        40000
+      ]
+    },
+    "零售业": {
+      "employees": [
+        10,
+        50,
+        300
+      ],
+      "revenue_wan": [
+        100,
+        500,
+        20000
+      ]
+    },
+    "交通运输业": {
+      "employees": [
+        20,
+        300,
+        1000
+      ],
+      "revenue_wan": [
+        200,
+        3000,
+        30000
+      ]
+    },
+    "仓储业": {
+      "employees": [
+        20,
+        100,
+        200
+      ],
+      "revenue_wan": [
+        100,
+        1000,
+        30000
+      ]
+    },
+    "邮政业": {
+      "employees": [
+        20,
+        300,
+        1000
+      ],
+      "revenue_wan": [
+        100,
+        2000,
+        30000
+      ]
+    },
+    "住宿业": {
+      "employees": [
+        10,
+        100,
+        300
+      ],
+      "revenue_wan": [
+        100,
+        2000,
+        10000
+      ]
+    },
+    "餐饮业": {
+      "employees": [
+        10,
+        100,
+        300
+      ],
+      "revenue_wan": [
+        100,
+        2000,
+        10000
+      ]
+    },
+    "信息传输业": {
+      "employees": [
+        10,
+        100,
+        2000
+      ],
+      "revenue_wan": [
+        100,
+        1000,
+        100000
+      ]
+    },
+    "软件和信息技术服务业": {
+      "employees": [
+        10,
+        100,
+        300
+      ],
+      "revenue_wan": [
+        50,
+        1000,
+        10000
+      ]
+    },
+    "房地产开发经营": {
+      "revenue_wan": [
+        100,
+        1000,
+        200000
+      ],
+      "assets_wan": [
+        2000,
+        5000,
+        10000
+      ]
+    },
+    "物业管理": {
+      "employees": [
+        100,
+        300,
+        1000
+      ],
+      "revenue_wan": [
+        500,
+        1000,
+        5000
+      ]
+    },
+    "租赁和商务服务业": {
+      "employees": [
+        10,
+        100,
+        300
+      ],
+      "assets_wan": [
+        100,
+        8000,
+        120000
+      ]
+    },
+    "其他未列明行业": {
+      "employees": [
+        10,
+        100,
+        300
+      ]
+    }
+  }
+}

@@ -30,7 +30,7 @@
 | [开户销户及柜面材料清单](counter-business-material-checklist/SKILL.md) | 开户材料、销户材料、变更材料、久悬户 | 办理说明/备稿 |
 | [开户尽职调查预填](account-opening-due-diligence/SKILL.md) | 开户尽调、开户调查表 | 外部代码/模板依赖 |
 | [销户尽职调查预填](account-closing-due-diligence/SKILL.md) | 销户尽调、销户调查表 | 外部代码/模板依赖 |
-| [企业划型与ECIF佐证材料](enterprise-size-classification/SKILL.md) | 企业划型、001-划型、划型佐证、ECIF佐证 | 依赖本次原模板/资料 |
+| [企业划型与ECIF佐证材料](enterprise-size-classification/SKILL.md) | 企业划型、001-划型、划型佐证、ECIF佐证 | 已有脚本与原版空白模板；正式结论需有效行内规则 |
 | [受益所有人穿透与证据整理](beneficial-owner-evidence/SKILL.md) | 受益所有人、股权穿透、境外股东、查册材料 | 依赖本次原模板/资料 |
 
 ## 票据与存单
