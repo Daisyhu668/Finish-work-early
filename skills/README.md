@@ -82,6 +82,7 @@
 | --- | --- |
 | 清理记忆、沉淀技能 | [记忆精简与技能沉淀](personal-work-assistant/references/memory-hygiene.md) |
 | 移交客户、共同认领核对 | [移交客户与借据核对](loan-maturity-relay-and-credit-expiry/references/handover-review.md) |
+| 合同换版、任务恢复、原计划日与到期话术 | [状态与话术细则](loan-maturity-relay-and-credit-expiry/references/status-and-messages.md)；日常交付服从用户最新指示 |
 | 风险面访、重组审查回复 | [风险客户重组与审查](shouxin-report/references/restructuring-review.md) |
 
 ## 使用示例

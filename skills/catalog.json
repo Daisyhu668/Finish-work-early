@@ -3,7 +3,7 @@
   "workspace": "工作技能区",
   "canonical_repository": "Daisyhu668/Finish-work-early",
   "canonical_directory": "skills/",
-  "updated": "2026-11-09",
+  "updated": "2026-11-13",
   "entrypoint": "skills/work-skills-router/SKILL.md",
   "status_meanings": {
     "workflow": "可按说明指导起草；不代表自动执行引擎",
@@ -50,7 +50,8 @@
       ],
       "sources": [
         "skills/loan-maturity-relay-and-credit-expiry/SKILL.md",
-        "skills/loan-maturity-relay-and-credit-expiry/references/handover-review.md"
+        "skills/loan-maturity-relay-and-credit-expiry/references/handover-review.md",
+        "skills/loan-maturity-relay-and-credit-expiry/references/status-and-messages.md"
       ],
       "status": "workflow",
       "limitation": "必须读取最新合同及本期任务；借据与额度独立",
