@@ -78,7 +78,7 @@
     },
     {
       "id": "bankpro-invoice-two-stage",
-      "name": "发票登记与银承关联",
+      "name": "银承发票及前置准备",
       "category": "票据与存单",
       "path": "skills/bankpro-invoice-two-stage/SKILL.md",
       "triggers": [
@@ -91,7 +91,10 @@
         "购销合同识别",
         "购销合同录入",
         "BI极速关联",
-        "交易背景勾稽"
+        "交易背景勾稽",
+        "银承前置准备",
+        "开票前置准备",
+        "BI出来了"
       ],
       "sources": [
         "skills/bankpro-invoice-two-stage/scripts/case_workflow.py",
@@ -184,7 +187,7 @@
     },
     {
       "id": "under-invoice-workflow",
-      "name": "银承项下全链路备稿",
+      "name": "银承向下交付材料整理",
       "category": "票据与存单",
       "path": "skills/under-invoice-workflow/SKILL.md",
       "triggers": [
@@ -196,7 +199,10 @@
         "银承扫描材料",
         "提向下材料",
         "银承PDF归档",
-        "银承材料拆分"
+        "银承材料拆分",
+        "向下交付材料",
+        "整套扫描PDF",
+        "银承材料整理"
       ],
       "sources": [
         "components/tools/UnderInvoiceWorkflow.tsx",
@@ -204,7 +210,7 @@
         "skills/under-invoice-workflow/scripts/material_pack.py"
       ],
       "status": "workflow",
-      "limitation": "本地PDF标题候选及确认后拆分/合并；纯扫描件需授权Agent视觉或人工确认页界；系统必需项按实核对",
+      "limitation": "支持整套PDF和混合PDF目录；标题候选须核实，发票与实际导入后选票一致，原模板文书能力保留为内部辅助",
       "template_paths": []
     },
     {

@@ -28,3 +28,6 @@ description: Use when 用户或待办涉及工作技能、日常工作、待办�
 - skills/catalog.json
 - skills/source-map.json
 - skills/personal-work-assistant/SKILL.md
+
+## 银承两个用户入口（V3.4优先）
+“银承前置准备/发票/购销合同识别/BI出来了”统一走bankpro-invoice-two-stage按阶段推进；“整套扫描PDF/向下交付材料/银承材料整理”优先走under-invoice-workflow，引用发票技能的最终选票，不重新登记、不另做系统操作Skill。测算及文书生成保留内部辅助入口。若两个阶段同时请求，先前置/关联，再交付归档。
