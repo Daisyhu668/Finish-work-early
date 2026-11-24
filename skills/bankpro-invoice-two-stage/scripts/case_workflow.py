@@ -189,6 +189,13 @@ def plan_stage2(args):
     case,conf=loadcase(args.case)
     _,doc,frozen=frozen_case(case,conf)
     payload=load(args.bills)
+    contract_txt=None;contract_hash=None
+    if getattr(args,'contracts',None):
+        from contract_reconcile import reconcile
+        contract_data=load(args.contracts)
+        contract_txt,limits=reconcile(contract_data,payload)
+        payload['contract_unpaid_by_payee']=limits
+        contract_hash=digest(contract_data)
     bills=bills_from_payload(payload,conf,frozen)
     candidates=selection_from_file(args.selected_invoices,doc)
     # External verification data is read again AFTER bank registration; never trust stale Stage1 snapshot as current status.
@@ -263,12 +270,14 @@ def plan_stage2(args):
             'original_candidate_count':len(candidates),'unused_candidate_count':len(excess),
             'status_source':Path(args.status_source).name if args.status_source else Path(args.status_json).name,
             'system_import_confirmed':False,'note':'每张发票仅分配给一笔银承；结果待客户经理核对，非银行系统接受证明'}
+    if contract_hash:output['contract_source_hash']=contract_hash
     output['plan_sha256']=digest(output)
     stage=case/'stage2';stage.mkdir(exist_ok=True)
     planfile=stage/'association_plan.json'
     if planfile.exists() and load(planfile)['plan_sha256']!=output['plan_sha256']:
         raise ValueError('已有不同方案，禁止覆盖；请归档/新建批次或明确撤销旧方案')
     save(planfile,output)
+    if contract_txt:(stage/'购销合同录入.txt').write_text(contract_txt,encoding='utf-8')
     csvwrite(stage/'selected_for_bi.csv',chosen_rows,['seller','bi','invoice_no','invoice_date','total'])
     csvwrite(stage/'not_selected.csv',exclusions,['seller','invoice_no','invoice_date','total','reason'])
     csvwrite(stage/'bill_coverage.csv',coverage,['bi','payee','bill_amount','invoice_total','overage','invoice_count'])
@@ -319,7 +328,7 @@ def main(argv=None):
     s=sub.add_parser('registration');s.add_argument('--case',required=True);s.add_argument('--out',required=True);s.add_argument('--template',default='');s.add_argument('--engine',choices=['excel','wps'],default='excel');s.add_argument('--accept-new-template',action='store_true')
     s=sub.add_parser('bi-template');s.add_argument('--case',required=True)
     s=sub.add_parser('plan');s.add_argument('--case',required=True);s.add_argument('--bills',required=True);s.add_argument('--selected-invoices',required=True);
-    s.add_argument('--status-source',default='');s.add_argument('--status-json',default='')
+    s.add_argument('--status-source',default='');s.add_argument('--status-json',default='');s.add_argument('--contracts',default='',help='已核实购销合同JSON；联合校验后生成合同录入TXT')
     s=sub.add_parser('association');s.add_argument('--case',required=True);s.add_argument('--plan',default='');s.add_argument('--confirm-plan',required=True);s.add_argument('--out',required=True);s.add_argument('--template',default='');s.add_argument('--engine',choices=['excel','wps'],default='excel');s.add_argument('--accept-new-template',action='store_true')
     a=p.parse_args(argv)
     return {'init':init,'prepare':prepare,'registration':reg,'bi-template':bi_template,
