@@ -171,6 +171,7 @@ def run(argv=None):
     ap.add_argument('--template',required=True,help='原始.xls模板，勿使用历史失败生成稿')
     ap.add_argument('--out',required=True,help='必须是.xls，必须不同于原模板')
     ap.add_argument('--bi-mapping',default='',help='关联模式必须提供收款人->BI字典JSON')
+    ap.add_argument('--prepared',default='',help='原版关联模板的已填非BI字段副本；仅写空白汇票序号列')
     ap.add_argument('--engine',choices=['excel','wps'],default='excel')
     ap.add_argument('--accept-new-template',action='store_true',help='明确授权新模板，并在复核后使用')
     args=ap.parse_args(argv)
@@ -200,13 +201,33 @@ def run(argv=None):
     if not records:raise ValueError('选用发票0张')
     out.parent.mkdir(parents=True,exist_ok=True)
     if out.exists():raise FileExistsError(f'输出已存在，禁止覆盖：{out}')
+    prepared=Path(args.prepared).resolve() if args.prepared else None
+    if prepared and (args.mode!='association' or prepared.suffix.lower()!='.xls' or prepared in (out,template)):
+        raise ValueError('BI极速填列仅支持独立的已预填关联.xls副本')
     app=open_excel(args.engine)
     wb=None
     try:
         # SaveCopyAs produces an exact copy of bank-provided original BEFORE editing any cells.
         src=app.Workbooks.Open(str(template),UpdateLinks=0,ReadOnly=True)
-        try:src.SaveCopyAs(str(out))
+        reference=None
+        try:
+            if prepared:
+                ref_candidates=[]
+                for sheet in src.Worksheets:
+                    try:
+                        hr,fm,st,lb=template_header(sheet)
+                        if REQUIRED_BY_MODE['association']<=set(fm):
+                            ref_candidates.append((len(fm),sheet,hr,fm))
+                    except ValueError:continue
+                if not ref_candidates:raise ValueError('原版关联模板字段不足')
+                _,refsheet,refrow,refmap=max(ref_candidates,key=lambda x:x[0])
+                reference=workbook_snapshot(src,refsheet,refrow,refmap,len(records))
+            else:src.SaveCopyAs(str(out))
         finally:src.Close(False)
+        if prepared:
+            draft=app.Workbooks.Open(str(prepared),UpdateLinks=0,ReadOnly=True)
+            try:draft.SaveCopyAs(str(out))
+            finally:draft.Close(False)
         wb=app.Workbooks.Open(str(out),UpdateLinks=0,ReadOnly=False)
         candidates=[]
         for sheet in wb.Worksheets:
@@ -233,24 +254,58 @@ def run(argv=None):
                     first=ws.Cells(data_start,col)
                     if (str(first.Style),str(first.NumberFormat)) != ('Normal','General'):
                         raise ValueError(f'模板第{ri}行{key}列未预设格式；禁止插入/复制样式，请向系统导出足量行数的原始模板')
-        # Bulk-write by recognized field, never hard-code the BI column.
-        # Preflight all values/blank cells before editing any data.
-        for key,col in fields.items():
-            rng=ws.Range(ws.Cells(data_start,col),ws.Cells(data_start+len(records)-1,col))
-            old=rng.Value2
-            old_rows=(old,) if len(records)==1 else tuple(v[0] for v in old)
-            if any(v not in (None,'') for v in old_rows):
-                raise ValueError(f'{ws.Name} {key}列存在旧客户数据，禁止覆盖')
-            vals=[excel_value(r,key) for r in records]
-            if key in mandatory and any(v is None for v in vals):
-                raise ValueError(f'{key}为必填，来源缺少有效值')
-            if any(v is not None for v in vals):
-                rng.Value2=vals[0] if len(vals)==1 else tuple((v,) for v in vals)
-            if key in ('invoice_no','bi'):
-                actual=rng.Value2
-                read=(actual,) if len(vals)==1 else tuple(v[0] for v in actual)
-                if any(v is not None and (not isinstance(got,str) or got!=v) for got,v in zip(read,vals)):
-                    raise ValueError(f'{key}批量写入读回失真，禁止导入')
+        if prepared:
+            if structural_diff(reference,before):
+                raise ValueError('预填副本与原版模板结构不同，不能只补BI')
+            # All prefilled non-BI cells must agree with the approved frozen rows.
+            # Reject additional populated data rows and any pre-existing BI.
+            last=data_start+len(records)-1
+            for key,col in fields.items():
+                last_used=int(ws.Cells(ws.Rows.Count,col).End(-4162).Row)
+                if last_used>last:raise ValueError(f'{key}列含额外旧数据')
+                rng=ws.Range(ws.Cells(data_start,col),ws.Cells(last,col))
+                raw=rng.Value2
+                actual=(raw,) if len(records)==1 else tuple(v[0] for v in raw)
+                expected=[excel_value(r,key) for r in records]
+                if key=='bi':
+                    if any(v not in (None,'') for v in actual):raise ValueError('已有BI，禁止覆盖或串单')
+                    continue
+                for got,want in zip(actual,expected):
+                    if want is None:
+                        ok=got in (None,'')
+                    elif key in ('total','net'):
+                        try:ok=Decimal(str(got)).quantize(Decimal('.01'))==Decimal(str(want)).quantize(Decimal('.01'))
+                        except Exception:ok=False
+                    else:
+                        ok=isinstance(got,str) and got==want
+                    if not ok:raise ValueError(f'预填表{key}与审核计划不一致；请走原版模板批量生成')
+            col=fields['bi']
+            rng=ws.Range(ws.Cells(data_start,col),ws.Cells(last,col))
+            vals=[r['bi'] for r in records]
+            rng.Value2=vals[0] if len(vals)==1 else tuple((v,) for v in vals)
+            raw=rng.Value2
+            actual=(raw,) if len(vals)==1 else tuple(v[0] for v in raw)
+            if any(not isinstance(got,str) or got!=v for got,v in zip(actual,vals)):
+                raise ValueError('BI极速填列读回失败')
+        else:
+            # Bulk-write by recognized field, never hard-code the BI column.
+            # Preflight all values/blank cells before editing any data.
+            for key,col in fields.items():
+                rng=ws.Range(ws.Cells(data_start,col),ws.Cells(data_start+len(records)-1,col))
+                old=rng.Value2
+                old_rows=(old,) if len(records)==1 else tuple(v[0] for v in old)
+                if any(v not in (None,'') for v in old_rows):
+                    raise ValueError(f'{ws.Name} {key}列存在旧客户数据，禁止覆盖')
+                vals=[excel_value(r,key) for r in records]
+                if key in mandatory and any(v is None for v in vals):
+                    raise ValueError(f'{key}为必填，来源缺少有效值')
+                if any(v is not None for v in vals):
+                    rng.Value2=vals[0] if len(vals)==1 else tuple((v,) for v in vals)
+                if key in ('invoice_no','bi'):
+                    actual=rng.Value2
+                    read=(actual,) if len(vals)==1 else tuple(v[0] for v in actual)
+                    if any(v is not None and (not isinstance(got,str) or got!=v) for got,v in zip(read,vals)):
+                        raise ValueError(f'{key}批量写入读回失真，禁止导入')
         after=workbook_snapshot(wb,ws,hrow,fields,len(records))
         diff=structural_diff(before,after)
         if diff:raise RuntimeError('检测到非数据变化：'+diff)
@@ -276,7 +331,7 @@ def run(argv=None):
         finally:checkwb.Close(False)
         audit={'template':str(template),'template_sha256':sha256(template),'output':str(out),'mode':args.mode,
                'count':len(records),'sum':str(sum((Decimal(r['total']) for r in records),Decimal('0'))),
-               'field_mapping':fields,'structure_checks':'pass','system_import_tested':False}
+               'field_mapping':fields,'write_mode':'bi_only' if prepared else 'bulk_fields','structure_checks':'pass','system_import_tested':False}
         Path(str(out)+'.audit.json').write_text(json.dumps(audit,ensure_ascii=False,indent=2),encoding='utf-8')
         print(json.dumps(audit,ensure_ascii=False,indent=2))
     except Exception:
