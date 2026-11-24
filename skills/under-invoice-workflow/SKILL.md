@@ -35,3 +35,7 @@ description: Use when 用户或待办涉及项下开票、银承预约、质押�
 复用本Skill，不新建重复入口。按客户、期限、业务日期/批次独立工作目录。建议固定扫描顺序：提票申请书、质押合同、出库单、入库单、承诺函、说明函、存单、冻结凭证、存款入账凭证、移交明细表；实际上传分类与必需/不适用项由用户按行内要求确认。不要固定页数。提前整理的购销合同和发票直接纳入，不重新打印扫描。
 
 运行 python scripts/material_pack.py inspect --scan 整套.pdf --out 分页计划.json。PyMuPDF仅提取可用文字层前部标题候选，纯扫描件由授权环境Agent视觉识别或人工录入页码；不得根据页数猜边界。补全customer/term/period、required和not_applicable（覆盖全部预置类别）、segments（kind/start/end，一基闭区间）、external（path/kind/sha256/verified，发票另填payee及可选month），人工确认全部页归属后置confirmed:true。运行 python scripts/material_pack.py build --manifest 分页计划.json --out 最终提交包。按实际顺序合并同类购销合同PDF；发票按企业_发票_交易对手[_月份]归档，不跨对手或月份误合并；其他文件按企业_期限_日期或批次_内容命名。每页唯一归属，缺件、重复页、未确认页阻断。原PDF不改、不删、不上传外部。输出上传材料清单（TXT及JSON含来源页码），仅供实际系统提交前核对，不代替提交。安装 pip install pymupdf。扫描标题候选不是自动识别结果，扫描件须确认页界。
+
+### 本地归档使用补充
+
+inspect 支持 --preview-dir 页预览目录；标题候选与 proposed_segments 均仅建议，确认后将实际范围写入 segments。没有文字层时不假设识别成功；授权Agent可看页图确认。发票只纳入最终已确认选票PDF，且需 invoice_final_selection_confirmed:true 和 system_import_confirmed:true。允许同名合同合并；发票按对手及可选YYYYMM月份归组。不同企业/批次分目录。归档包缺必需项/重复PDF/重复页/漏页/待确认项时阻断，输出临时目录仅在全部写完且页数读回通过后转正式目录。不改变原扫描件。扫描分类目前为12项预置清单，实际系统分类或额外材料需按本行真实模板补充；未验证的名称不当正式系统名称。

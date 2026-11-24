@@ -94,3 +94,10 @@ Windows电脑需安装Microsoft Excel、Python及`pywin32`。多BI自动最优�
 提票前从客户原始合同（本地授权环境）识别购方、销方、合同编号、签订日、合同金额、已核实未付款余额。单份可人工填写，多份由Agent提取后逐项核实，不猜未付金额。将结构化合同保存为 JSON（customer、case_id、contracts，每项 buyer/seller/number/date/amount/unpaid/verified），运行 scripts/contract_reconcile.py --contracts 合同.json --out 输出，生成购销合同录入.txt及合同未付余额.json；提票后加 --bills 真实BI.json，复核同户同批各对手银票总额不得超过已核实未付余额。将余额JSON录入BI payload的 contract_unpaid_by_payee 后再执行plan。合同与发票共同核验，不替代合同真实性调查。
 
 极速：已冻结底稿、最终选票、最新核验、真实BI主表齐备且单BI时，在BI payload明确 fast_confirmed_selection:true，plan直接全量映射已确认发票至该BI，不进入组合求解；原有人工映射、覆盖、占用、核验、日期及计划指纹确认全部保留。多个BI且不同收款人、每个对手仅一BI时也可用该模式；同一对手多BI仍走原分票优化器。无需重复OCR或重新整理第一阶段。手动Excel仅允许在已审核计划对应的原模板副本按实际表头“汇票序号1”填值；禁止猜列号、覆盖其他数据、将编号当数字。建议优先使用原writer保真写出；没有Windows Excel COM不能宣称已生成可导入xls。系统成功后才调整最终发票PDF副本。
+
+### 极速版实际命令
+
+- 提票前：Agent在授权本地环境识别合同，核实后保存合同JSON；单份合同手工填也可以。运行 contract_reconcile.py 产生次日复制用TXT。
+- 提票后：原 plan 命令增加 --contracts 合同.json --fast-confirmed-selection，直接联合合同余额/交易对手检查，并在 stage2 生成购销合同录入.txt。仅已确认全部发票且每对手一BI时跳过组合求解；复杂分票仍使用原算法。
+- 已有原版关联模板的预填副本（所有非BI字段已填、BI列空白）：association 命令增加 --prepared 预填副本.xls。脚本按真实表头定位汇票序号列、逐行对照冻结底稿和审核计划、比较原版结构、检查旧数据及空BI，只写这一列并保存新副本；不符合即BLOCK，改走原版模板批量生成。无预填副本时默认按列批量写Value2，减少Excel COM调用。
+- 不改变原先 --confirm-plan 门禁；没有真实BI主表及最新查验数据不能只凭编码猜收款人/金额/日期。Windows Excel COM及行内导入仍须实机联调。

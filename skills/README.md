@@ -37,10 +37,10 @@
 
 | 技能 | 常用触发词 | 当前能力/依赖 |
 | --- | --- | --- |
-| [发票登记与银承关联](bankpro-invoice-two-stage/SKILL.md) | 整理发票、发票登记、选票、BI关联 | 已有离线脚本 |
+| [发票登记与银承关联](bankpro-invoice-two-stage/SKILL.md) | 整理发票、发票登记、选票、BI极速关联、购销合同勾稽 | 已有离线脚本 |
 | [存单解冻与手工备款](cd-unfreeze-manual-funding/SKILL.md) | 存单解冻、解除质押、手工备款 | 依赖本次原模板/资料 |
 | [银承与存单测算](acceptance-deposit-calculation/SKILL.md) | 银承测算、存单测算、一年期银承、半年期银承 | 办理说明/备稿 |
-| [银承项下全链路备稿](under-invoice-workflow/SKILL.md) | 项下开票、银承预约、质押登记、中登登记 | 办理说明/备稿 |
+| [银承项下全链路备稿](under-invoice-workflow/SKILL.md) | 项下开票、银承预约、质押登记、提向下材料、扫描PDF归档 | 办理说明/本地PDF脚本 |
 | [批量开票文书与明细](batch-billing-documents/SKILL.md) | 批量开票、项下开票材料、开票工具包、批量生成开票文书 | 依赖本次原模板/资料 |
 
 ## OA与文稿
