@@ -2,7 +2,7 @@
 name: bankpro-invoice-two-stage
 description: 银行对公客户发票登记与银承关联双阶段 Skill。将不同企业提供的多份不同格式发票清单先规范填入厦门银行原始 InvoiceLogInfo.xls，供提前登记及核验；待客户经理提供确认选中的发票、外部核验结果和真实 BI 汇票序号后，按交易对手和每张银票金额自动分配整张发票，填入原始 InvoiceInfo.xls，支持同一对手多张银票。必须保护原模板格式、下拉验证和表头；不得跨企业串单或推定缺失资料；金额/票号/发票有效期异常时必须阻断。
 metadata:
-  version: '3.2.1'
+  version: '3.3.0'
   author: APEX BankPro
 ---
 
@@ -88,3 +88,9 @@ Windows电脑需安装Microsoft Excel、Python及`pywin32`。多BI自动最优�
 - 原版 `InvoiceLogInfo.xls`、`InvoiceInfo.xls` 在获授权的本地运行目录 `assets/` 中提供，保留原生xls格式。GitHub代码不包含银行生产业务数据。
 - 触发语「整理发票」默认进入第一阶段，若用户明确发来真实BI序号/说“关联汇票”则进入第二阶段，不重复登记。
 - 本项目代码及模板导入尚未经真实银行系统验证，不能把离线生成称为“成功导入”。
+
+## 2026-11-25：BI极速关联 + 购销合同联合处理（v3.3）
+
+提票前从客户原始合同（本地授权环境）识别购方、销方、合同编号、签订日、合同金额、已核实未付款余额。单份可人工填写，多份由Agent提取后逐项核实，不猜未付金额。将结构化合同保存为 JSON（customer、case_id、contracts，每项 buyer/seller/number/date/amount/unpaid/verified），运行 scripts/contract_reconcile.py --contracts 合同.json --out 输出，生成购销合同录入.txt及合同未付余额.json；提票后加 --bills 真实BI.json，复核同户同批各对手银票总额不得超过已核实未付余额。将余额JSON录入BI payload的 contract_unpaid_by_payee 后再执行plan。合同与发票共同核验，不替代合同真实性调查。
+
+极速：已冻结底稿、最终选票、最新核验、真实BI主表齐备且单BI时，在BI payload明确 fast_confirmed_selection:true，plan直接全量映射已确认发票至该BI，不进入组合求解；原有人工映射、覆盖、占用、核验、日期及计划指纹确认全部保留。多个BI且不同收款人、每个对手仅一BI时也可用该模式；同一对手多BI仍走原分票优化器。无需重复OCR或重新整理第一阶段。手动Excel仅允许在已审核计划对应的原模板副本按实际表头“汇票序号1”填值；禁止猜列号、覆盖其他数据、将编号当数字。建议优先使用原writer保真写出；没有Windows Excel COM不能宣称已生成可导入xls。系统成功后才调整最终发票PDF副本。

@@ -220,6 +220,8 @@ def plan_stage2(args):
     if any(not buckets[k] for k in bypay):raise ValueError('部分BI收款人没有候选发票')
     automatic={};coverage=[];methods=[];excess=[]
     manual=payload.get('by_invoice') or {}
+    if not manual and payload.get('fast_confirmed_selection') is True and all(len(v)==1 for v in bypay.values()):
+        manual={r['invoice_no']:bypay[stable_party(r['seller'])][0]['bi'] for r in candidates}
     if manual:
         if not isinstance(manual,dict):raise ValueError('by_invoice必须为发票号码->BI字典')
         # Treat explicit links as authoritative ONLY if full invoice list is covered and amounts reconcile.

@@ -61,3 +61,9 @@ py scripts/case_workflow.py association --case "案件/CASE20261029A" --confirm-
 - `整理发票`：无BI则执行阶段一完整发票登记及核验前准备；已有BI和已选票名单则进入阶段二。
 - `这批发票外部查询2次的剔掉`：生成风险筛选和选票/剔票清单，不修改第一阶段登记底稿。
 - `汇票序号出来了`：读取最新核验及实际BI、按销方匹配收款人、支持同一收款人多BI自动测算，先审核方案再填InvoiceInfo.xls。
+
+## 2026-11-25：BI极速关联 + 购销合同联合处理（v3.3）
+
+提票前从客户原始合同（本地授权环境）识别购方、销方、合同编号、签订日、合同金额、已核实未付款余额。单份可人工填写，多份由Agent提取后逐项核实，不猜未付金额。将结构化合同保存为 JSON（customer、case_id、contracts，每项 buyer/seller/number/date/amount/unpaid/verified），运行 scripts/contract_reconcile.py --contracts 合同.json --out 输出，生成购销合同录入.txt及合同未付余额.json；提票后加 --bills 真实BI.json，复核同户同批各对手银票总额不得超过已核实未付余额。将余额JSON录入BI payload的 contract_unpaid_by_payee 后再执行plan。合同与发票共同核验，不替代合同真实性调查。
+
+极速：已冻结底稿、最终选票、最新核验、真实BI主表齐备且单BI时，在BI payload明确 fast_confirmed_selection:true，plan直接全量映射已确认发票至该BI，不进入组合求解；原有人工映射、覆盖、占用、核验、日期及计划指纹确认全部保留。多个BI且不同收款人、每个对手仅一BI时也可用该模式；同一对手多BI仍走原分票优化器。无需重复OCR或重新整理第一阶段。手动Excel仅允许在已审核计划对应的原模板副本按实际表头“汇票序号1”填值；禁止猜列号、覆盖其他数据、将编号当数字。建议优先使用原writer保真写出；没有Windows Excel COM不能宣称已生成可导入xls。系统成功后才调整最终发票PDF副本。
