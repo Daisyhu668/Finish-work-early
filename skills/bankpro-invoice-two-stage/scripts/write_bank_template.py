@@ -68,10 +68,13 @@ def open_excel(engine):
 def template_header(ws):
     """Choose header row by distinct known labels; never assume A1 is header."""
     candidates=[]
+    # A single COM call replaces hundreds of per-cell header reads.
+    last_col=min(int(ws.UsedRange.Columns.Count)+1,119)
+    header_values=ws.Range(ws.Cells(1,1),ws.Cells(15,last_col)).Value2
     for rowid in range(1,16):
         fields={}; required_by_star=set();raw={}
-        for colid in range(1,min(int(ws.UsedRange.Columns.Count)+2,120)):
-            val=ws.Cells(rowid,colid).Value2
+        for colid in range(1,last_col+1):
+            val=header_values[rowid-1][colid-1]
             if val is None:continue
             label=str(val)
             key=FIELD_LOOKUP.get(norm(label))
@@ -230,24 +233,24 @@ def run(argv=None):
                     first=ws.Cells(data_start,col)
                     if (str(first.Style),str(first.NumberFormat)) != ('Normal','General'):
                         raise ValueError(f'模板第{ri}行{key}列未预设格式；禁止插入/复制样式，请向系统导出足量行数的原始模板')
-        for offset,r in enumerate(records):
-            excel_row=data_start+offset
-            for key,col in fields.items():
-                cell=ws.Cells(excel_row,col)
-                existing=cell.Value2
-                if existing not in (None,''):
-                    raise ValueError(f'{ws.Name}!R{excel_row}C{col}已有内容，不允许覆盖示例或旧客户数据')
-                value=excel_value(r,key)
-                if value is None and key in mandatory:
-                    raise ValueError(f'第{offset+1}张{key}为必填，但来源没有有效值')
-                if value is not None:cell.Value2=value
-                # exact read-back; 20-digit invoice numbers must remain strings
-                if key=='invoice_no':
-                    actual=cell.Value2
-                    if not isinstance(actual,str) or actual!=r['invoice_no']:
-                        raise ValueError(f'发票号码读回失真：原{r["invoice_no"]}，写后{actual}；可能存在数值自动转换')
-                if key=='bi' and value is not None and str(cell.Value2)!=value:
-                    raise ValueError(f'BI号码写入异常第{offset+1}条')
+        # Bulk-write by recognized field, never hard-code the BI column.
+        # Preflight all values/blank cells before editing any data.
+        for key,col in fields.items():
+            rng=ws.Range(ws.Cells(data_start,col),ws.Cells(data_start+len(records)-1,col))
+            old=rng.Value2
+            old_rows=(old,) if len(records)==1 else tuple(v[0] for v in old)
+            if any(v not in (None,'') for v in old_rows):
+                raise ValueError(f'{ws.Name} {key}列存在旧客户数据，禁止覆盖')
+            vals=[excel_value(r,key) for r in records]
+            if key in mandatory and any(v is None for v in vals):
+                raise ValueError(f'{key}为必填，来源缺少有效值')
+            if any(v is not None for v in vals):
+                rng.Value2=vals[0] if len(vals)==1 else tuple((v,) for v in vals)
+            if key in ('invoice_no','bi'):
+                actual=rng.Value2
+                read=(actual,) if len(vals)==1 else tuple(v[0] for v in actual)
+                if any(v is not None and (not isinstance(got,str) or got!=v) for got,v in zip(read,vals)):
+                    raise ValueError(f'{key}批量写入读回失真，禁止导入')
         after=workbook_snapshot(wb,ws,hrow,fields,len(records))
         diff=structural_diff(before,after)
         if diff:raise RuntimeError('检测到非数据变化：'+diff)
@@ -268,6 +271,8 @@ def run(argv=None):
                     raise RuntimeError(f'保存后票面金额核对失败：第{i}行')
                 if args.mode=='association' and str(checkws.Cells(i,fields['bi']).Value2)!=r['bi']:
                     raise RuntimeError(f'保存后BI映射不一致：第{i}行')
+                if normalize_party(checkws.Cells(i,fields['payee']).Value2)!=normalize_party(r['seller']):
+                    raise RuntimeError(f'保存后收款人/销方不一致：第{i}行')
         finally:checkwb.Close(False)
         audit={'template':str(template),'template_sha256':sha256(template),'output':str(out),'mode':args.mode,
                'count':len(records),'sum':str(sum((Decimal(r['total']) for r in records),Decimal('0'))),
