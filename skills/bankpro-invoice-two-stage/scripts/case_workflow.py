@@ -227,7 +227,7 @@ def plan_stage2(args):
     if any(not buckets[k] for k in bypay):raise ValueError('部分BI收款人没有候选发票')
     automatic={};coverage=[];methods=[];excess=[]
     manual=payload.get('by_invoice') or {}
-    if not manual and payload.get('fast_confirmed_selection') is True and all(len(v)==1 for v in bypay.values()):
+    if not manual and (payload.get('fast_confirmed_selection') is True or getattr(args,'fast_confirmed_selection',False)) and all(len(v)==1 for v in bypay.values()):
         manual={r['invoice_no']:bypay[stable_party(r['seller'])][0]['bi'] for r in candidates}
     if manual:
         if not isinstance(manual,dict):raise ValueError('by_invoice必须为发票号码->BI字典')
@@ -304,6 +304,7 @@ def association(args):
     opts=['--mode','association','--data',str(outdata),'--template',str(args.template or ROOT/'assets'/'InvoiceInfo.xls'),
           '--bi-mapping',str(mapfile),'--out',args.out,'--engine',args.engine]
     if args.accept_new_template:opts+=['--accept-new-template']
+    if getattr(args,'prepared',None):opts+=['--prepared',args.prepared]
     writer.run(opts)
     save(str(args.out)+'.case.json',{'customer':conf['customer'],'case_id':conf['case_id'],'plan_sha256':expected,
                                      'system_import_confirmed':False,'output':'InvoiceInfo.xls候选版'})
@@ -328,8 +329,8 @@ def main(argv=None):
     s=sub.add_parser('registration');s.add_argument('--case',required=True);s.add_argument('--out',required=True);s.add_argument('--template',default='');s.add_argument('--engine',choices=['excel','wps'],default='excel');s.add_argument('--accept-new-template',action='store_true')
     s=sub.add_parser('bi-template');s.add_argument('--case',required=True)
     s=sub.add_parser('plan');s.add_argument('--case',required=True);s.add_argument('--bills',required=True);s.add_argument('--selected-invoices',required=True);
-    s.add_argument('--status-source',default='');s.add_argument('--status-json',default='');s.add_argument('--contracts',default='',help='已核实购销合同JSON；联合校验后生成合同录入TXT')
-    s=sub.add_parser('association');s.add_argument('--case',required=True);s.add_argument('--plan',default='');s.add_argument('--confirm-plan',required=True);s.add_argument('--out',required=True);s.add_argument('--template',default='');s.add_argument('--engine',choices=['excel','wps'],default='excel');s.add_argument('--accept-new-template',action='store_true')
+    s.add_argument('--status-source',default='');s.add_argument('--status-json',default='');s.add_argument('--contracts',default='',help='已核实购销合同JSON；联合校验后生成合同录入TXT');s.add_argument('--fast-confirmed-selection',action='store_true')
+    s=sub.add_parser('association');s.add_argument('--case',required=True);s.add_argument('--plan',default='');s.add_argument('--confirm-plan',required=True);s.add_argument('--out',required=True);s.add_argument('--template',default='');s.add_argument('--engine',choices=['excel','wps'],default='excel');s.add_argument('--accept-new-template',action='store_true');s.add_argument('--prepared',default='',help='已预填非BI字段的原版关联模板副本，校验后只补BI列')
     a=p.parse_args(argv)
     return {'init':init,'prepare':prepare,'registration':reg,'bi-template':bi_template,
             'plan':plan_stage2,'association':association}[a.command](a)
