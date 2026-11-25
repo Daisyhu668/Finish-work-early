@@ -38,6 +38,7 @@
 | 技能 | 常用触发词 | 当前能力/依赖 |
 | --- | --- | --- |
 | [发票登记与银承关联](bankpro-invoice-two-stage/SKILL.md) | 整理发票、发票登记、选票、BI极速关联、购销合同勾稽 | 已有离线脚本 |
+| [银承近期贴现及资金来源核查](bankpro-discount-fund-tracing/SKILL.md) | 近一周有贴现、贴现说明、贴现流水、开票资金来源 | Agent复核＋离线Word/PDF脚本；完整材料打包 |
 | [存单解冻与手工备款](cd-unfreeze-manual-funding/SKILL.md) | 存单解冻、解除质押、手工备款 | 依赖本次原模板/资料 |
 | [银承与存单测算](acceptance-deposit-calculation/SKILL.md) | 银承测算、存单测算、一年期银承、半年期银承 | 办理说明/备稿 |
 | [银承项下全链路备稿](under-invoice-workflow/SKILL.md) | 项下开票、银承预约、质押登记、提向下材料、扫描PDF归档 | 办理说明/本地PDF脚本 |
@@ -76,7 +77,7 @@
 
 ## 按需补充流程
 
-沿用现有33项技能，新增流程直接归入原技能，避免重复入口。
+沿用现有技能，新增流程按统一目录维护，避免重复用户入口。
 
 | 请求 | 原技能内的流程 |
 | --- | --- |
@@ -112,5 +113,5 @@
 规则：[工作区维护约定](AGENTS.md) · [共用办理规则](_shared/WORKFLOW.md) · [仓库归类与来源](REPOSITORIES.md)
 
 ## 银承两个用户入口（V3.4）
-1. [银承发票及前置准备](bankpro-invoice-two-stage/SKILL.md)：前置登记、选票、合同TXT、当天BI关联。
+1. [银承发票及前置准备](bankpro-invoice-two-stage/SKILL.md)：前置登记、选票、合同TXT、当天BI关联；近期贴现及资金来源说明按 [贴现核查子技能](bankpro-discount-fund-tracing/SKILL.md) 执行。
 2. [银承向下交付材料整理](under-invoice-workflow/SKILL.md)：整套扫描PDF或混合目录，标题识别建议、确认后拆分合并、命名、最终上传清单。原测算及文书生成保留内部调用，不新建系统操作Skill。
