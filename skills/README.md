@@ -115,3 +115,6 @@
 ## 银承两个用户入口（V3.4）
 1. [银承发票及前置准备](bankpro-invoice-two-stage/SKILL.md)：前置登记、选票、合同TXT、当天BI关联；近期贴现及资金来源说明按 [贴现核查子技能](bankpro-discount-fund-tracing/SKILL.md) 执行。
 2. [银承向下交付材料整理](under-invoice-workflow/SKILL.md)：整套扫描PDF或混合目录，标题识别建议、确认后拆分合并、命名、最终上传清单。原测算及文书生成保留内部调用，不新建系统操作Skill。
+
+## V3.5 次日开票预填
+明确要求不做第一阶段、仅待BI编码时，按[银承发票及前置准备](bankpro-invoice-two-stage/SKILL.md)的V3.5预填分支处理；候选稿与正式导入件严格区分，仍保留真实BI及核验门禁。
