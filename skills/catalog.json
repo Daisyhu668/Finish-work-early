@@ -94,7 +94,10 @@
         "交易背景勾稽",
         "银承前置准备",
         "开票前置准备",
-        "BI出来了"
+        "BI出来了",
+        "只差BI编码",
+        "跳过第一阶段",
+        "InvoiceInfo预填"
       ],
       "sources": [
         "skills/bankpro-invoice-two-stage/scripts/case_workflow.py",
@@ -102,7 +105,7 @@
         "skills/bankpro-invoice-two-stage/scripts/write_bank_template.py"
       ],
       "status": "offline_engine",
-      "limitation": "保留原版xls、真实BI、选票及最新核验；极速写入依赖Windows Excel COM；合同字段需核实，实际系统导入须行内验收",
+      "limitation": "保留原版xls、真实BI、选票及最新核验；极速写入依赖Windows Excel COM；合同字段需核实，实际系统导入须行内验收；V3.5明确指定跳过第一阶段时仅交BI留空预填候选，正式关联仍须最新核验及真实BI；无COM提供数据底稿和执行指引",
       "template_paths": []
     },
     {
