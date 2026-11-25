@@ -318,6 +318,18 @@
       "skill_ids": [
         "enterprise-size-classification"
       ]
+    },
+    {
+      "source": "skills/bankpro-discount-fund-tracing/SKILL.md",
+      "skill_ids": [
+        "bankpro-discount-fund-tracing"
+      ]
+    },
+    {
+      "source": "skills/bankpro-discount-fund-tracing/scripts/build_package.py",
+      "skill_ids": [
+        "bankpro-discount-fund-tracing"
+      ]
     }
   ]
 }
