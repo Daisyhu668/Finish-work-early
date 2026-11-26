@@ -3,7 +3,7 @@
   "workspace": "工作技能区",
   "canonical_repository": "Daisyhu668/Finish-work-early",
   "canonical_directory": "skills/",
-  "updated": "2026-11-25",
+  "updated": "2026-11-26",
   "entrypoint": "skills/work-skills-router/SKILL.md",
   "status_meanings": {
     "workflow": "可按说明指导起草；不代表自动执行引擎",
@@ -105,8 +105,11 @@
         "skills/bankpro-invoice-two-stage/scripts/write_bank_template.py"
       ],
       "status": "offline_engine",
-      "limitation": "保留原版xls、真实BI、选票及最新核验；极速写入依赖Windows Excel COM；合同字段需核实，实际系统导入须行内验收；V3.5明确指定跳过第一阶段时仅交BI留空预填候选，正式关联仍须最新核验及真实BI；无COM提供数据底稿和执行指引",
-      "template_paths": []
+      "limitation": "保留原版xls、真实BI、选票及最新核验；极速写入依赖Windows Excel COM；合同字段需核实，实际系统导入须行内验收；V3.5明确指定跳过第一阶段时仅交BI留空预填候选，正式关联仍须最新核验及真实BI；无COM提供数据底稿和执行指引；V3.6 原版模板优先查授权本地 assets 和用户持久文件库，校验指纹后自动复用；公开仓库不含原版二进制。",
+      "template_paths": [
+        "assets/InvoiceLogInfo.xls",
+        "assets/InvoiceInfo.xls"
+      ]
     },
     {
       "id": "bankpro-discount-fund-tracing",
